@@ -67,5 +67,46 @@ module.exports = {
         res.status(500).json(err);
       }
     },
+     // Create a reaction for a thought
+  async createReaction(req, res) {
+    try {
+      const thought = await Thought.findById(req.params.thoughtId);
+
+      if (!thought) {
+        return res.status(404).json({ message: 'No thought with that ID' });
+      }
+
+      const newReaction = {
+        reactionBody: req.body.reactionBody,
+        username: req.body.username,
+      };
+
+      thought.reactions.push(newReaction);
+      await thought.save();
+
+      res.json({ message: 'Reaction created successfully', thought });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  // Remove a reaction from a thought
+  async removeReaction(req, res) {
+    try {
+      const thought = await Thought.findById(req.params.thoughtId);
+
+      if (!thought) {
+        return res.status(404).json({ message: 'No thought with that ID' });
+      }
+
+      const reactionIdToRemove = req.params.reactionId;
+      thought.reactions = thought.reactions.filter(reaction => reaction.reactionId.toString() !== reactionIdToRemove);
+      await thought.save();
+
+      res.json({ message: 'Reaction removed successfully', thought });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
   };
   
