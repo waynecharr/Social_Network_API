@@ -8,3 +8,4 @@
 - "took an initial stab at the api/routes. Put in some basic code that will need to be fleshed out later." 
 - "updated API routes, added a few additional bits of code for reactions and friends"
 - "made additional additions to the API routes. Needs to be tested."
+- "made some additional changes to the api routes"
