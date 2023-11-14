@@ -3,7 +3,7 @@ const { Thought } = require('./models/thoughts');
 
 module.exports = {
     // Get all thoughts
-    async getthoughts(req, res) {
+    async getThoughts(req, res) {
       try {
         const thoughts = await User.find();
         res.json(thoughts);
@@ -12,7 +12,7 @@ module.exports = {
       }
     },
     // Get a thought
-    async getSinglethought(req, res) {
+    async getSingleThought(req, res) {
       try {
         const thought = await thought.findOne({ _id: req.params.thoughtId })
           .select('-__v');
@@ -27,7 +27,7 @@ module.exports = {
       }
     },
     // Create a thought
-    async createthought(req, res) {
+    async createThought(req, res) {
       try {
         const thought = await Thought.create(req.body);
         res.json(thought);
@@ -37,7 +37,7 @@ module.exports = {
       }
     },
     // Delete a thought
-    async deletethought(req, res) {
+    async deleteThought(req, res) {
       try {
         const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
   
@@ -50,7 +50,7 @@ module.exports = {
       }
     },
     // Update a thought
-    async updatethought(req, res) {
+    async updateThought(req, res) {
       try {
         const thought = await Thought.findOneAndUpdate(
           { _id: req.params.thoughtId },
