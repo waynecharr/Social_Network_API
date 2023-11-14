@@ -1,25 +1,7 @@
 const mongoose = require('mongoose');
+const reactionSchema = require('./reactions')
 
-const reactionSchema = new mongoose.Schema({
-  reactionBody: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => {
-      return new Date(timestamp).toLocaleDateString();
-    },
-  },
-});
-
-const thoughtSchema = new mongoose.Schema({
+const thoughtSchema = new Schema({
   thoughtText: {
     type: String,
     required: true,
@@ -45,6 +27,6 @@ thoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
-const Thought = mongoose.model('Thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
 
 module.exports = Thought;
