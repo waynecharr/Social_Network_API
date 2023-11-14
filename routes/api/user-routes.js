@@ -10,7 +10,9 @@ const {
 } = require('../../controllers/users-controller.js');
 
 // /api/users
-router.route('/').get(getUsers).post(createUser);
+router.route('/').
+get(getUsers).
+post(createUser);
 
 // /api/courses/:userId
 router
@@ -18,5 +20,9 @@ router
   .get(getSingleUser)
   .put(updateUser)
   .delete(deleteUser);
+
+  router.route('/userID/friends/:friendID')
+  .post(addFriend)
+  .delete(removeFriend)
 
 module.exports = router;
