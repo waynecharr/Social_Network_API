@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const reactionSchema = require('./reactions')
+const Reaction = require('./reactions');
 
 const thoughtSchema = new Schema({
   thoughtText: {
@@ -19,7 +19,7 @@ const thoughtSchema = new Schema({
     type: String,
     required: true,
   },
-  reactions: [reactionSchema],
+  reactions: [Reaction.schema], // Correctly reference the reactionSchema
 });
 
 // Virtual called "reactioncount" that retrieves the length of the thoughts "reactions" array field

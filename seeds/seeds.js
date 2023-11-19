@@ -1,17 +1,59 @@
-const connection = require('../config/connection')
-const { Thoughts, Users } = require('../models')
+const connection = require('../config/connection');
+const { Thoughts, Users, Reactions } = require('../models');
 
-var userlist = [
-    { username: "happyman", 
-    email: "happyman@gmail.com" },
+const userlist = [
+    { username: "coolguy", email: "lotsofnumbers@gmail.com" },
+    { username: "sadman", email: "lotsofletters@gmail.com" },
+    { username: "whatadude", email: "lotsofcharacters@gmail.com" },
+];
 
-    { username: "sadman", 
-    email: "sadman@gmail.com" },
-]
+const thoughtslist = [
+    { thoughtText: "This is a cool thought.", username: "coolguy" },
+    { thoughtText: "Feeling sad today.", username: "sadman" },
+    { thoughtText: "What a great day!", username: "whatadude" },
+];
 
-connection.once("open", async()=> {
-    await Users.collection.insertMany(userlist)
-    var data = await Users.find()
-    console.log(data)
-    process.exit(0)
-})
+const reactionslist = [
+    { reactionBody: "Agree!", username: "coolguy" },
+    { reactionBody: "Sending you positive vibes.", username: "sadman" },
+    { reactionBody: "Awesome!", username: "whatadude" },
+];
+
+connection.once("open", async () => {
+    // Insert users
+    await Users.collection.insertMany(userlist);
+
+    // Get user IDs to associate thoughts and reactions
+    const users = await Users.find();
+    const userIds = users.map(user => user._id);
+
+    // Associate thoughts with users
+    const thoughtsWithUsers = thoughtslist.map((thought, index) => ({
+        ...thought,
+        username: userlist[index].username,
+        user: userIds[index], // Associate thought with user
+    }));
+    
+    // Insert thoughts
+    await Thoughts.collection.insertMany(thoughtsWithUsers);
+
+    // Associate reactions with thoughts and users
+    const reactionsWithThoughtsAndUsers = reactionslist.map((reaction, index) => ({
+        ...reaction,
+        username: userlist[index].username,
+        user: userIds[index], // Associate reaction with user
+        thought: thoughtsWithUsers[index]._id, // Associate reaction with thought
+    }));
+
+    // Insert reactions
+    await Reactions.collection.insertMany(reactionsWithThoughtsAndUsers);
+
+    // Log data
+    const data = await Users.find().populate('thoughts').populate({
+        path: 'thoughts',
+        populate: { path: 'reactions' }
+    });
+    
+    console.log(data);
+    process.exit(0);
+});
