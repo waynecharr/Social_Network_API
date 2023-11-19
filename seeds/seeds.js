@@ -20,7 +20,7 @@ const reactionslist = [
 ];
 
 connection.once("open", async () => {
-    // Insert users
+    // Inserts users
     await Users.collection.insertMany(userlist);
 
     // Get user IDs to associate thoughts and reactions
@@ -31,13 +31,13 @@ connection.once("open", async () => {
     const thoughtsWithUsers = thoughtslist.map((thought, index) => ({
         ...thought,
         username: userlist[index].username,
-        user: userIds[index], // Associate thought with user
+        user: userIds[index], 
     }));
     
-    // Insert thoughts
+    // Inserts thoughts
     await Thoughts.collection.insertMany(thoughtsWithUsers);
 
-    // Associate reactions with thoughts and users
+    // Associates reactions with the corresponding thoughts and users. 
     const reactionsWithThoughtsAndUsers = reactionslist.map((reaction, index) => ({
         ...reaction,
         username: userlist[index].username,
@@ -48,7 +48,7 @@ connection.once("open", async () => {
     // Insert reactions
     await Reactions.collection.insertMany(reactionsWithThoughtsAndUsers);
 
-    // Log data
+    // Logs data
     const data = await Users.find().populate('thoughts').populate({
         path: 'thoughts',
         populate: { path: 'reactions' }

@@ -11,3 +11,5 @@
 - "made some additional changes to the api routes"
 - "Worked with Tutor Juan Delgado. Helped me with creating a seed file for mongodb, as well as helping me with my controllers, models, and api routing." 
 - "Updated the seeds.js file and made adjustments to some of the models to better populate seeds. Updated port to 3003." 
+- "Made quite updates to routes, models, and started redoing users-controller. Fixed the get all users function."
+- "Updated user-controller have all the get, put and add friends working." 
