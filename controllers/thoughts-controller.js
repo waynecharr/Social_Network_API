@@ -1,4 +1,5 @@
 const { Thoughts, User } = require('../models/'); 
+const Thought = require('../models/thoughts');
 
 
 const thoughtsController = {
@@ -69,6 +70,40 @@ const thoughtsController = {
       }
     } catch (error) {
       res.status(500).json(error);
+    }
+  },
+  //Creates a reaction
+  async createReaction(req, res) {
+    try {
+      const thoughtData = await Thoughts.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $push: { reactions: req.body } },
+        { new: true, runValidators: true }
+      );
+      if (!thoughtData) {
+        res.status(404).json({ message: 'There is no thought with that ID.' });
+      } else {
+        res.json(thoughtData);
+      }
+    } catch (error) {
+      res.status(500).json(error); 
+    }
+  },
+  // Deletes a reaction
+  async removeReaction(req,res) {
+    try {
+      const thoughtData = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $pull: { reactions: { reactionId: req.params.reactionId } } },
+        { new: true }
+      );
+      if (!thoughtData) {
+        res.status(404).json({ message: 'There is no thought with that ID.' });
+      } else {
+        res.json(thoughtData);
+      }
+    } catch (error) {
+      res.status(500).json(error); 
     }
   }
 };;

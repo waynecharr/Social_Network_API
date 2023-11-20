@@ -15,3 +15,4 @@
 - "Updated user-controller have all the get, put and add users working."
 - "Finished all user-controllers. Finished add and remove friend." 
 - "Finished all the get, updates, and eletes in the thoughts-controller.js."
+- "Finished the reaction for create and delete in the thoughts-controller.js"
