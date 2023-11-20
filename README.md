@@ -2,7 +2,7 @@
 
 # Description
 
-This is the back end of a social media website. It uses mongoDb to populate 
+This is the back end of a social media website. It uses mongoDb to populate data. 
 
 # Table of Contents
 
