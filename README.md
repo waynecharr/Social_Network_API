@@ -1,4 +1,22 @@
-# Update history 
+## Social Media backend
+
+# Description
+
+This is the back end of a social media website. It uses mongoDb to populate 
+
+# Table of Contents
+
+- [Installation](#installation)
+- [Updates](#updates)
+- [Contributing](#contributing)
+- [Instructions](#instructions)
+- [Video](#Video)
+
+# Installation
+
+Download packages with ```npm install```. 
+
+# Updates
 
 - initial commit 
 - Set up files for the models
@@ -16,3 +34,21 @@
 - "Finished all user-controllers. Finished add and remove friend." 
 - "Finished all the get, updates, and eletes in the thoughts-controller.js."
 - "Finished the reaction for create and delete in the thoughts-controller.js"
+- "Added live deployment video" 
+
+# Contrubuting
+
+- worked with tutor Juan Delgado who helped me with routes
+- OTherwise referenced module 18 in class work for assistance
+
+# Instructions 
+
+Set the port to the port of your choosing. I have to set 3003.
+
+If you wish to seed the database before starting there is a seed file. You can seed it by running ```npm run seed```.
+
+In order to run the server, you will need to have node install. Run the server by using ```node server.js```.
+
+# Video 
+
+https://drive.google.com/file/d/18yfHtdKvDXccRFr762MEnsjcK6_k-r0o/view
